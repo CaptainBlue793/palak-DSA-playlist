@@ -69,11 +69,11 @@
   ];
 
   const LEVELS = [
-    ['Foundations', 'var(--green)', 'The method, complexity, and the array/string/search patterns everything else rests on.'],
-    ['Data Structures', 'var(--accent-2)', 'Every structure you will ever be asked to use or build, from linked lists to lazy segment trees.'],
-    ['Graphs & Paradigms', 'var(--accent)', 'Graph algorithms end to end, plus backtracking, greedy and divide & conquer.'],
-    ['DP & Advanced', 'var(--amber)', 'Dynamic programming in every shape, bit tricks, number theory and geometry.'],
-    ['Mastery', 'var(--pink)', 'String algorithms, design problems, the pattern playbook, debugging and the interview itself.'],
+    ['Foundations', 'var(--accent)', 'The method, complexity, and the array/string/search patterns everything else rests on.'],
+    ['Data Structures', 'color-mix(in srgb, var(--accent-2) 25%, var(--accent))', 'Every structure you will ever be asked to use or build, from linked lists to lazy segment trees.'],
+    ['Graphs & Paradigms', 'color-mix(in srgb, var(--accent-2) 50%, var(--accent))', 'Graph algorithms end to end, plus backtracking, greedy and divide & conquer.'],
+    ['DP & Advanced', 'color-mix(in srgb, var(--accent-2) 75%, var(--accent))', 'Dynamic programming in every shape, bit tricks, number theory and geometry.'],
+    ['Mastery', 'var(--accent-2)', 'String algorithms, design problems, the pattern playbook, debugging and the interview itself.'],
   ];
 
   const LS = {
@@ -225,7 +225,7 @@
 
     // sidebar
     const done = doneSet();
-    let html = `<a class="brand" href="index.html"><span class="brand-logo">◆</span><span>DSA Playlist<br><small style="font-weight:500;color:var(--muted);font-size:12px">by Palak Deb Patra</small></span></a>
+    let html = `<a class="brand" href="index.html"><span class="brand-logo"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4.3" r="2.1"/><circle cx="6.2" cy="11.7" r="2.1"/><circle cx="17.8" cy="11.7" r="2.1"/><circle cx="3.3" cy="19.5" r="1.6"/><circle cx="9.1" cy="19.5" r="1.6"/><path d="M10.7 5.9 7.5 10.1M13.3 5.9l3.2 4.2M5 13.4l-.9 4.5M7.4 13.4l.9 4.5"/></svg></span><span><span class="grad">DSA Playlist</span><br><small style="font-weight:500;color:var(--muted);font-size:12px">by Palak Deb Patra</small></span></a>
       <div class="side-progress"><div class="bar"><i style="width:${(done.size / CHAPTERS.length) * 100}%"></i></div><small>${done.size} of ${CHAPTERS.length} chapters complete</small></div>`;
     let lastLevel = '';
     for (const c of CHAPTERS) {
