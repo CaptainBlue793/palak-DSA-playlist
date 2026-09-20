@@ -1,3 +1,12 @@
+> [!IMPORTANT]
+> **This course has moved.** It now lives alongside my other courses in
+> **[The Engineering Atlas](https://github.com/CaptainBlue793/palak-engineering-atlas)** — one repo, one site, shared progress
+> and search across every chapter.
+>
+> **Read it here → https://captainblue793.github.io/palak-engineering-atlas/dsa/**
+>
+> This repository is archived and kept only so existing links keep working.
+
 # DSA — Interactive Course
 
 A complete data structures and algorithms course, from "what is a loop doing" to bitmask DP,

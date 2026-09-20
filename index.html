@@ -64,8 +64,8 @@
   .chap-card h4 { margin:6px 0 0; font-size:17px; letter-spacing:-.01em; line-height:1.3; }
   .chap-card p { margin:0; color:var(--muted); font-size:14px; line-height:1.5; flex:1; }
   .chap-card .meta { display:flex; gap:8px; align-items:center; font-size:12px; color:var(--muted); margin-top:6px; flex-wrap:wrap; }
-  .chap-card.done { border-color:color-mix(in srgb, var(--green) 45%, var(--border)); }
-  .chap-card.done .emo { background:var(--green-soft); border-color:transparent; }
+  .chap-card.done { border-color:color-mix(in srgb, var(--accent) 45%, var(--border)); }
+  .chap-card.done .emo { background:var(--accent-soft); border-color:transparent; }
   .how { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; }
   .paths { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; }
   .path { padding:18px 20px; border-radius:18px; border:1px solid var(--border); background:var(--surface); }
@@ -78,11 +78,41 @@
   @media (max-width:900px){ .style-strip{ grid-template-columns:1fr; } }
   .style-strip ul { margin:0; padding-left:20px; color:var(--text-2); font-size:14.5px; }
   .style-strip li { margin-bottom:6px; }
+
+  /* ---------- Engineering Atlas house style ---------- */
+  body { counter-reset: sec; }
+  .section-title {
+    font-size: clamp(26px, 3.4vw, 36px); letter-spacing: -.035em;
+    margin: 92px 0 8px; padding-top: 24px; border-top: 1px solid var(--border);
+  }
+  .section-title::before {
+    counter-increment: sec; content: "0" counter(sec); display: block;
+    font-family: var(--mono); font-size: 11px; font-weight: 600;
+    letter-spacing: .18em; color: var(--faint); margin-bottom: 12px;
+  }
+  .section-sub { font-size: 15.5px; max-width: 760px; margin-bottom: 30px; }
+  .home-hero h1 { letter-spacing: -.045em; }
+  .progress-card::after { display: none; }
+  .progress-card { border-radius: 20px; }
+  .chap-card { border-radius: 18px; }
+  .chap-card:hover { transform: translateY(-3px); }
+  .map-panel { border-radius: 20px; }
+
+  /* Dotted progress: one square per chapter, as on the Atlas home page. */
+  .lvl-bars .ticks { display: flex; flex-wrap: wrap; gap: 3px; }
+  .lvl-bars .tick { flex: none; width: calc((100% - (var(--n) - 1) * 3px) / var(--n)); height: 10px;
+    border-radius: 2px; background: var(--surface-3);
+    transition: transform .14s, background .25s, box-shadow .25s; }
+  .lvl-bars .tick.done { background: var(--c); }
+  .lvl-bars .tick.next { background: transparent; box-shadow: inset 0 0 0 2px var(--c); }
+  .lvl-bars .tick:hover { transform: scale(1.45); background: var(--c); }
+  .lvl-bars::after { content: "one square = one chapter · click to open"; display: block;
+    margin-top: 10px; font-family: var(--mono); font-size: 10.5px; color: var(--faint); }
 </style>
 </head>
 <body>
   <header class="home-top">
-    <a class="brand" href="index.html" style="text-decoration:none"><span class="brand-logo">◆</span> <span>DSA Playlist<br><small style="font-weight:500;color:var(--muted);font-size:12px">by Palak Deb Patra</small></span></a>
+    <a class="brand" href="index.html" style="text-decoration:none"><span class="brand-logo"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4.3" r="2.1"/><circle cx="6.2" cy="11.7" r="2.1"/><circle cx="17.8" cy="11.7" r="2.1"/><circle cx="3.3" cy="19.5" r="1.6"/><circle cx="9.1" cy="19.5" r="1.6"/><path d="M10.7 5.9 7.5 10.1M13.3 5.9l3.2 4.2M5 13.4l-.9 4.5M7.4 13.4l.9 4.5"/></svg></span> <span><span class="grad">DSA Playlist</span><br><small style="font-weight:500;color:var(--muted);font-size:12px">by Palak Deb Patra</small></span></a>
     <div class="spacer"></div>
     <button class="icon-btn theme-btn" id="themeBtn" aria-label="Toggle theme">🌙</button>
   </header>
@@ -91,7 +121,7 @@
     <section class="home-hero">
       <div class="reveal">
         <span class="pill accent">⚡ 56 interactive chapters · Big-O → suffix arrays · every pattern</span>
-        <h1>Palak's <span class="grad">DSA Playlist</span></h1>
+        <h1>Palak's <span class="grad">DSA</span> Playlist</h1>
         <p class="byline"><span class="av">PP</span> Written by <b>Palak Deb Patra</b></p>
         <p class="lead">Data structures and algorithms as a <b>craft you practise</b>, not a list you memorise. Every structure is built from scratch, every algorithm animates step by step in the page, and every implementation is written in one consistent C&plus;&plus; style — so after a few chapters the code stops being something you read and becomes something your hands already know.</p>
         <div class="cta">
@@ -281,9 +311,14 @@
   } else { $('#nextUp').innerHTML = '🏆 <b>Course complete!</b> Outstanding work.'; }
 
   const levels = LEVELS;
+  const nextN = (CHAPTERS.find(x => !done.has(x.n)) || {}).n;
+  // the longest level defines the tick size, so that row ends flush right
+  const maxLvl = Math.max(...levels.map(([l]) => CHAPTERS.filter(x => x.level === l).length));
+  $('#lvlBars').style.setProperty('--n', maxLvl);
   $('#lvlBars').innerHTML = levels.map(([l,c]) => {
     const all = CHAPTERS.filter(x => x.level === l); const d = all.filter(x => done.has(x.n)).length;
-    return `<div class="row"><span>${l}</span><div class="track"><i style="width:${d/all.length*100}%;background:${c}"></i></div><span>${d}/${all.length}</span></div>`;
+    const ticks = all.map(x => `<a class="tick${done.has(x.n) ? ' done' : (x.n === nextN ? ' next' : '')}" href="${x.file}" title="Ch ${x.n} · ${x.title.replace(/"/g, '')}${done.has(x.n) ? ' ✓' : ''}"></a>`).join('');
+    return `<div class="row"><span>${l}</span><div class="ticks" style="--c:${c}">${ticks}</div><span>${d}/${all.length}</span></div>`;
   }).join('');
 
   // roadmap cards
@@ -296,7 +331,7 @@
           <div class="top"><span class="emo">${ch.icon}</span><span class="no">CHAPTER ${String(ch.n).padStart(2,'0')}</span></div>
           <h4>${ch.title}</h4>
           <p>${ch.blurb}</p>
-          <div class="meta"><span>⏱ ${ch.mins} min</span>${done.has(ch.n)?'<span class="pill green">✓ Done</span>':''}${quiz[ch.n]!=null?`<span class="pill cyan">Quiz ${Math.round(quiz[ch.n]*100)}%</span>`:''}</div>
+          <div class="meta"><span>⏱ ${ch.mins} min</span>${done.has(ch.n)?'<span class="pill done">✓ Done</span>':''}${quiz[ch.n]!=null?`<span class="pill cyan">Quiz ${Math.round(quiz[ch.n]*100)}%</span>`:''}</div>
         </a>`).join('')}</div>
     </div>`).join('');
   $$('#levels .reveal').forEach(e => setTimeout(() => e.classList.add('in'), 100));
@@ -323,7 +358,7 @@
     ['e-dsu-mst'],
     ['e-rec-bt','e-bt-dp','e-dp-str'],
   ];
-  const colors = ['var(--accent)','var(--accent-2)','var(--green)','var(--pink)','var(--amber)'];
+  const colors = ['var(--accent)','color-mix(in srgb, var(--accent-2) 25%, var(--accent))','color-mix(in srgb, var(--accent-2) 50%, var(--accent))','color-mix(in srgb, var(--accent-2) 75%, var(--accent))','var(--accent-2)'];
   let running = false;
   async function fire() {
     const r = routes[Math.floor(Math.random()*routes.length)], col = colors[Math.floor(Math.random()*colors.length)];
