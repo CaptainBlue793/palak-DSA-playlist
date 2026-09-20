@@ -303,6 +303,16 @@
       <p class="mb0">Given words sorted in an unknown alphabet's order, recover the alphabet. The toposort is the easy half; the graph construction has two traps. First, comparing adjacent words gives you <b>exactly one</b> edge — from the first position where they differ — and nothing after that position tells you anything, so you must <code>break</code> after adding it. Second, if one word is a <b>prefix</b> of the previous one (<code>"abc"</code> before <code>"ab"</code>), the input is <i>invalid</i> and you must return failure rather than silently producing an order. Then run Kahn, and an output shorter than the alphabet size means a contradictory ordering. <b>Most failures on this problem are in the graph, not the sort</b> — which is the general lesson for graph problems dressed up in a story.</p></div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 KAHN COUNTS</span><div class="tb">If Kahn emits fewer than V nodes, a cycle exists. That makes "is this schedulable?" and "give me an order" the same function with one extra check.</div></div>
+    <div class="trick"><span class="tk">💡 LEX SMALLEST</span><div class="tb">Swap the queue for a priority queue and Kahn gives the lexicographically smallest topological order. A one-word change to the container.</div></div>
+    <div class="trick"><span class="tk">💡 DAG DP</span><div class="tb">Longest path, path counts and critical paths are all DP in topological order — which is exactly the order that guarantees every dependency is already computed.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes</div>
     <ul class="mb0">
       <li><b>Pushing the reverse edge.</b> Topological sort is only defined on directed graphs; an undirected edge makes the output meaningless.</li>

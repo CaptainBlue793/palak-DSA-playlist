@@ -336,6 +336,16 @@
       <p class="mb0">In real code and in contests, reach for <code>std::map</code>, <code>std::set</code> or <code>std::multiset</code> — hand-rolling a red-black tree is a mistake in every practical setting. But be able to (a) state the invariants, (b) draw the four AVL cases, (c) explain why rotations preserve inorder, and (d) <b>write a treap</b>, which is the only one short enough to produce under time pressure. If an interviewer asks for a self-balancing tree from scratch, offering a treap with a one-line justification of its expected height is a far better answer than a half-finished red-black insert.</p></div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 WHY ROTATE</span><div class="tb">A rotation changes the height but never the in-order sequence. That invariant is the whole reason balancing is allowed to move nodes around at all.</div></div>
+    <div class="trick"><span class="tk">💡 USE THE LIBRARY</span><div class="tb">In an interview, reach for <code>std::map</code> / <code>std::set</code> and say "this is a balanced BST". Hand-rolling AVL is almost never what is being tested.</div></div>
+    <div class="trick"><span class="tk">💡 ORDER STATISTICS</span><div class="tb">Augment each node with its subtree size and you get k-th smallest and rank in O(log n) — which is what turns a BST into a tool for counting problems.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes</div>
     <ul class="mb0">
       <li><b>Forgetting to move the inner subtree in a rotation.</b> <code>y-&gt;left = x-&gt;right</code> is easy to skip and silently loses a whole subtree.</li>

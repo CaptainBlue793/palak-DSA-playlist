@@ -340,6 +340,16 @@
     <div class="card feature reveal"><div class="f-ico">✔️</div><h4>But backtracking <i>is</i> right when…</h4><p>you must <b>list</b> all solutions, n is genuinely small, the constraints prune hard, or the problem is NP-hard and there is no better option — Sudoku, N-Queens, word search, expression building.</p></div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 SORT TO DEDUPE</span><div class="tb">Sort first, then skip <code>i &gt; start &amp;&amp; a[i] == a[i-1]</code>. That is how you avoid duplicate subsets without a set — and the condition is on the <i>sibling</i>, not the parent.</div></div>
+    <div class="trick"><span class="tk">💡 PRUNE EARLY</span><div class="tb">Check feasibility before recursing, not at the leaf. A bound that cuts a branch at depth 2 saves more than any micro-optimisation at depth 12.</div></div>
+    <div class="trick gotcha"><span class="tk">⛔ RESTORE EXACTLY</span><div class="tb">Whatever you changed going down must be undone coming up — including the grid cell you marked as visited. A missing unmark is the classic word-search bug.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes</div>
     <ul class="mb0">
       <li><b>Forgetting the undo.</b> Every later branch inherits your choices and the output is garbage.</li>

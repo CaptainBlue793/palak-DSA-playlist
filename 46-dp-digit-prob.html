@@ -305,6 +305,16 @@ E = <span class="m">6</span></pre>
       <p class="small mb0" style="margin-top:8px"><b>Try the boolean version first when the output is a winner</b>, then look for the pattern in the small cases. Interviewers asking "who wins" are frequently hoping you will find the closed form after the DP confirms it.</p></div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 f(R) − f(L−1)</span><div class="tb">Count over a range by counting two prefixes. The same trick as prefix sums, applied to counting — and it halves the work you have to think about.</div></div>
+    <div class="trick gotcha"><span class="tk">⛔ DO NOT MEMO TIGHT</span><div class="tb">A tight state’s value depends on the bound, not just the state. Memoise only the free states, and remember the <code>started</code> flag or leading zeros will bite.</div></div>
+    <div class="trick"><span class="tk">💡 DIFFERENCE, NOT TURN</span><div class="tb">For two-player games, store the score difference from the mover’s perspective. Minimax then collapses to one minus sign and the turn leaves the state.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes</div>
     <ul class="mb0">
       <li><b>Memoising tight states in digit DP.</b> Their value depends on the bound; only free states are reusable.</li>

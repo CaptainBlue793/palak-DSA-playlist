@@ -297,6 +297,16 @@
       </ul></div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 WORK IN MERGE</span><div class="tb">The interesting divide-and-conquer algorithms do their real work in the <i>combine</i> step. If combining is trivial, you probably just have a loop.</div></div>
+    <div class="trick"><span class="tk">💡 MASTER THEOREM</span><div class="tb">T(n) = 2T(n/2) + O(n) is O(n log n); + O(1) is O(n). Recognising those two shapes covers nearly every recurrence you will meet.</div></div>
+    <div class="trick"><span class="tk">💡 BINARY EXPONENTIATION</span><div class="tb">Any associative operation applied n times is O(log n) by squaring — integers, matrices, even string hashes. One loop, endless reuse.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes</div>
     <ul class="mb0">
       <li><b>Using <code>int</code> for an inversion count.</b> Up to <code>n(n−1)/2</code> ≈ 5 × 10⁹ at n = 10⁵.</li>

@@ -306,6 +306,16 @@
     <div class="cb-foot"><b>Three lines carry all the risk.</b> (1) <code>applyLazy</code> is the first statement of <i>every</i> recursive function — no exceptions, or you read a stale value. (2) The length factor <code>(hi-lo+1)</code>: a tag of "+v per element" contributes <code>v × count</code> to a sum. (3) <code>lazy[child] += lazy[node]</code>, not <code>=</code> — a child may already owe something, and overwriting loses it.</div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 CHANGE ONE FUNCTION</span><div class="tb">A segment tree is generic over <code>merge</code> and its identity. Sum, min, max and gcd are the same tree with two lines swapped — write it once, parameterise it.</div></div>
+    <div class="trick"><span class="tk">💡 LAZY = DEFERRED</span><div class="tb">Lazy propagation is just "I promise to apply this later". The hard part is never the push-down; it is composing two pending tags correctly.</div></div>
+    <div class="trick gotcha"><span class="tk">⛔ SIZE 4N</span><div class="tb">Allocate <code>4*n</code>, not <code>2*n</code>. The recursive layout wastes slots when <code>n</code> is not a power of two, and the overflow is silent.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger">
     <div class="ico">🚨</div>
     <div class="body"><div class="title">Assignment tags do not compose like addition tags</div>

@@ -269,6 +269,16 @@
       <p class="mb0">Tiling problems ("count the ways to fill a 2×n or m×n board with dominoes") use the mask differently: <b>the mask describes a boundary, not a set of used items.</b> Process the board column by column; <code>dp[col][mask]</code> is the number of ways to fill everything before <code>col</code> such that <code>mask</code> records which cells of column <code>col</code> are already covered by a tile sticking out from the left. The transition enumerates the legal ways to place tiles in column <code>col</code>, producing the next column's mask. It is O(n·2ᵐ·2ᵐ) in the crude form, so keep <b>m as the smaller dimension</b> — for a 2×10⁵ board that is trivial, and for a 10×10 board it is fine. This is the bridge from "mask as a set" to "mask as a shape", and it is the standard technique for grid-tiling counts.</p></div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 n ≤ 20 IS THE HINT</span><div class="tb">A tiny bound plus "each item exactly once" is the bitmask signature. The bound is not a courtesy; it is telling you an exponential state is expected.</div></div>
+    <div class="trick"><span class="tk">💡 DERIVE, DO NOT STORE</span><div class="tb">If items are taken in a fixed order, the position is <code>popcount(mask)</code> — no second dimension. That alone divides the memory by n.</div></div>
+    <div class="trick gotcha"><span class="tk">⛔ PARENTHESISE</span><div class="tb"><code>mask &amp; 1&lt;&lt;i == 0</code> parses as <code>mask &amp; (1==0)</code> and is always false. Always parenthesise, and never do arithmetic on <code>INT_MAX</code>.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes</div>
     <ul class="mb0">
       <li><b>Arithmetic on <code>INT_MAX</code>.</b> It wraps negative and looks like a great answer. Guard with <code>if(dp[...]==INT_MAX)continue;</code>.</li>

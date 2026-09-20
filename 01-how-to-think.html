@@ -322,6 +322,16 @@
     <div class="ti" data-n="5"><h4>Once a week, run a timed mock</h4><p>The <a href="mock-interview.html">mock-interview room</a> draws a problem and paces you through clarify → brute force → optimize → code → test. Solve out loud. Always.</p></div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 FIRST MOVE</span><div class="tb">Before anything else, write the <b>state sentence</b> or the <b>invariant</b> in one line of English. If you cannot finish that sentence, you do not yet have a solution — and no amount of typing will produce one.</div></div>
+    <div class="trick"><span class="tk">💡 BUDGET</span><div class="tb">Read the constraint, divide 10⁸ by it, and you have your allowed complexity <i>before</i> you pick a technique. n = 10⁵ buys you a log factor; n = 20 buys you 2ⁿ.</div></div>
+    <div class="trick gotcha"><span class="tk">⛔ GLOBALS</span><div class="tb">A global <code>ans</code> works once and then silently breaks on the second call, which is exactly what judges that reuse a process will do. Driver owns the state, helper takes it by reference.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes</div>
     <ul class="mb0">
       <li><b>Reading the prose before the constraints.</b> The constraint line eliminates more wrong approaches than any amount of cleverness. Read it first, every time.</li>

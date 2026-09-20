@@ -334,6 +334,16 @@
   <div class="pat"><h5>Rectangle sums with point updates</h5><p>→ <b>2D Fenwick.</b> Twenty lines; a 2D segment tree is hundreds.</p><span class="sig">for(i..)for(j..) tree[i][j]+=v;</span></div>
   <div class="pat"><h5>Range median, mode, or "k-th smallest in range"</h5><p>→ <b>None of these.</b> Merge-sort tree, wavelet tree, persistent segment tree, or Mo's algorithm (Chapter 51).</p><span class="sig">// not decomposable</span></div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 LOWBIT</span><div class="tb">Fenwick is two loops and <code>i += i &amp; -i</code> / <code>i -= i &amp; -i</code>. Fewer lines than a segment tree, several times faster, and 1-indexed by necessity.</div></div>
+    <div class="trick"><span class="tk">💡 COMPRESS FIRST</span><div class="tb">Counting problems over values up to 10⁹ become Fenwick problems the moment you sort the distinct values and index by rank. Coordinate compression is the enabling step.</div></div>
+    <div class="trick gotcha"><span class="tk">⛔ FENWICK CANNOT MIN</span><div class="tb">A Fenwick tree does prefix operations with an inverse. Min and max have none, so point-update range-min needs a segment tree or a sparse table.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes</div>
     <ul class="mb0">
       <li><b>0-indexing a Fenwick tree.</b> <code>lowbit(0) = 0</code>, so the update loop never advances and hangs. 1-indexed, always.</li>

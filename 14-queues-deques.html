@@ -299,6 +299,16 @@ q.<span class="f">push</span>(root);
     <div class="cb-foot"><b>Why amortized O(1):</b> each element is pushed to <code>in</code> once, moved to <code>out</code> once, and popped once — three operations over its whole lifetime, regardless of the call pattern. A single <code>pop</code> can cost O(n), but n operations cost O(n) total. <b>If you shift whenever <code>in</code> is non-empty instead of when <code>out</code> is empty, it becomes O(n) per operation</b> — and that is the bug the question is really probing.</div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 CAPTURE SIZE</span><div class="tb">For level-order, take <code>int n = q.size();</code> <i>before</i> the inner loop. Reading <code>q.size()</code> inside a loop that pushes to <code>q</code> merges every level into one.</div></div>
+    <div class="trick"><span class="tk">💡 DEQUE FOR EXTREMES</span><div class="tb">Sliding-window maximum keeps a deque of indices with decreasing values: pop the back while smaller, pop the front when it leaves the window. O(n), and a heap is not needed.</div></div>
+    <div class="trick"><span class="tk">💡 0-1 BFS</span><div class="tb">When edges cost only 0 or 1, a deque replaces the heap — push-front for 0, push-back for 1. Dijkstra without the log factor.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes</div>
     <ul class="mb0">
       <li><b><code>for(int i=0;i&lt;q.size();i++)</code> in BFS.</b> The size grows as you push children, so the inner loop eats the next level. Capture <code>int n=q.size()</code> first.</li>

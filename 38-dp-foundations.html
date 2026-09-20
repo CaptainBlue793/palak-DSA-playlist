@@ -296,6 +296,16 @@
     <div class="ti" data-n="5"><h4>Compare against brute force on random small inputs</h4><p>Write the exponential version and diff them on a hundred random arrays of size ≤ 10. This finds bugs that reading never will — it is Chapter 53's stress testing.</p></div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 STATE SENTENCE</span><div class="tb">Write <code>dp[i]</code> is … as an English sentence before any code. If the sentence needs two clauses, you need two dimensions — and you have just found them.</div></div>
+    <div class="trick"><span class="tk">💡 TOP-DOWN FIRST</span><div class="tb">Derive recursively and memoise; convert to a table only if you need the space optimisation. Top-down is far easier to get right and skips unreachable states for free.</div></div>
+    <div class="trick gotcha"><span class="tk">⛔ KEY = STATE</span><div class="tb">The memo key must contain every parameter the answer depends on and nothing else. If two calls with the same key could legitimately differ, the key is incomplete.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes</div>
     <ul class="mb0">
       <li><b>Writing code before writing the state sentence.</b> The root cause of most DP failures, and the easiest to fix.</li>

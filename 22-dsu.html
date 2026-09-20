@@ -324,6 +324,16 @@
     </div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 BOOL FROM UNITE</span><div class="tb">Make <code>unite</code> return whether it actually merged. That single boolean is the cycle test in Kruskal and the redundant-edge detector, for free.</div></div>
+    <div class="trick"><span class="tk">💡 GRID TO DSU</span><div class="tb">Flatten a grid cell to <code>r*cols + c</code> and any 2D connectivity problem becomes a 1D DSU. The same index trick works for any fixed-shape structure.</div></div>
+    <div class="trick gotcha"><span class="tk">⛔ BOTH OPTIMISATIONS</span><div class="tb">Path compression <i>and</i> union by rank. With only one you get O(log n); with both it is effectively O(1), and the code is two extra lines.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes</div>
     <ul class="mb0">
       <li><b>Writing <code>return find(parent[x]);</code> without the assignment.</b> Correct but uncompressed — you lose the entire optimisation silently.</li>

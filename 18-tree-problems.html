@@ -403,6 +403,16 @@
     <div class="cb-foot"><b><code>seen[running]--</code> is the tree version of the backtracking undo.</b> A prefix sum is only valid along the current root-to-node path; leaving it in the map lets a node in the left subtree pair with one in the right, which is not a path. This is the single most common bug in path-sum III, and it produces an overcount that looks plausible.</div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 RETURN ≠ ANSWER</span><div class="tb">For diameter and max-path-sum, what you report upward is a single chain; the answer that bends at this node goes into a by-reference accumulator. Conflating them is the classic failure.</div></div>
+    <div class="trick"><span class="tk">💡 MINUS-ONE SENTINEL</span><div class="tb">Check balance in one traversal by returning height, or −1 to mean "already unbalanced". Two traversals become one, and the early exit is free.</div></div>
+    <div class="trick gotcha"><span class="tk">⛔ INT_MIN START</span><div class="tb">Max-path-sum with negative values must start the answer at <code>INT_MIN</code>, not 0 — and the clamp goes on the <i>child</i> (<code>max(child,0)</code>), never on the answer.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes</div>
     <ul class="mb0">
       <li><b>Returning the answer instead of the height in diameter.</b> A parent can only extend a single downward path; a path peaking here must go into the reference parameter.</li>

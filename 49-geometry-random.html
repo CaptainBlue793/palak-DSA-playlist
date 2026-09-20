@@ -343,6 +343,16 @@
       <p class="mb0">It converts <i>adversarial</i> worst cases into <i>unlucky</i> ones. Quickselect with a random pivot still has an O(n²) worst case — but no input triggers it reliably, because the behaviour depends on the coin flips rather than on the data. That is a genuine guarantee against sorted or adversarial inputs, and it is why randomisation is standard in <code>std::sort</code>'s introsort and in hash-table seeding. <b>What it does not buy is a bound you can promise:</b> if a problem demands worst-case O(n), a randomised algorithm does not satisfy it no matter how good the expectation. And <b>seed properly</b> — <code>srand(time(0))</code> gives the same sequence twice within the same second, and a fixed seed makes your "random" pivot perfectly predictable, which defeats the entire point.</p></div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 ONE CROSS HELPER</span><div class="tb">Write <code>cross(O,A,B)</code> once; orientation, collinearity, polygon area and point-in-triangle are all its sign. A cascade of slope comparisons is how geometry code gets long and wrong.</div></div>
+    <div class="trick gotcha"><span class="tk">⛔ STAY IN INTEGERS</span><div class="tb">Compare squared distances and return twice the area. Every float you introduce is a future failure on a collinear or touching case.</div></div>
+    <div class="trick"><span class="tk">💡 RESERVOIR PROOF</span><div class="tb">Keeping the i-th item with probability 1/i is uniform because the survival product telescopes to 1/n. Short enough to say out loud, which is why it is worth knowing.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes</div>
     <ul class="mb0">
       <li><b>Using floating point for orientation.</b> Cross products in integers are exact; floats make collinearity undecidable.</li>

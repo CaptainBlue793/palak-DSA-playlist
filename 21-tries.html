@@ -303,6 +303,16 @@
       <p class="mb0">Build a trie of all patterns. For each node, compute a <b>failure link</b> to the deepest other node whose string is a proper suffix of this node's string — computed level by level with BFS, exactly as KMP computes its table. Now scan the text one character at a time: if the current node has a child for that character, follow it; otherwise follow failure links until one does (or you reach the root). Because a failure link never loses a match that is still possible, you never re-read a character, and every pattern ending at the current position is found by walking the chain of failure links upward. <b>It is used in spam filters, intrusion detection, DNA search and <code>grep -F</code> with multiple patterns</b> — anywhere you must match thousands of fixed strings in one pass. Know what it is and what it buys; full implementation is beyond what interviews ask.</p></div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 CHILDREN AS ARRAY</span><div class="tb">For a lowercase alphabet use <code>Node* next[26]</code>, not a map. It is faster, simpler, and the size is a constant you can afford.</div></div>
+    <div class="trick"><span class="tk">💡 TRIE + GRID DFS</span><div class="tb">Word Search II is one DFS over the grid walking a trie of all words simultaneously. Searching each word separately is the trap; the trie prunes whole branches at once.</div></div>
+    <div class="trick"><span class="tk">💡 BINARY TRIE FOR XOR</span><div class="tb">Maximum-XOR problems are a trie over bits, most significant first, greedily taking the opposite bit at each level. Recognising that is the entire difficulty.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes</div>
     <ul class="mb0">
       <li><b>Omitting <code>isEnd</code>.</b> Then <code>search("app")</code> returns true after inserting only "apple", because the path exists.</li>

@@ -341,6 +341,16 @@
     <div class="cb-foot"><b>Reconstruction is why you sometimes keep the full O(n·m) table</b> despite the one-row optimisation being available (Chapter 38). At n = m = 1000 that is a million ints — 4 MB, entirely reasonable. If both strings are 10⁵ long the table is out of the question, and then <b>Hirschberg's algorithm</b> recovers the alignment in O(n·m) time with only O(min(n,m)) space by recursively finding the midpoint — worth knowing the name.</div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 3×3 CORNER</span><div class="tb">Fill <code>dp[0..2][0..2]</code> by hand for two 2-character strings before writing the loops. Thirty seconds, and it settles the base cases and the indexing at once.</div></div>
+    <div class="trick gotcha"><span class="tk">⛔ OFF BY ONE</span><div class="tb">Row <code>i</code> means "the first <code>i</code> characters", so the character is <code>s[i-1]</code>. Derive that from the state sentence rather than guessing.</div></div>
+    <div class="trick"><span class="tk">💡 LCS ANSWERS FOUR</span><div class="tb">Minimum insert/delete, shortest common supersequence, longest palindromic subsequence and minimum insertions to make a palindrome all reduce to one LCS call.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes</div>
     <ul class="mb0">
       <li><b><code>s[i]</code> instead of <code>s[i-1]</code>.</b> Row <code>i</code> is about the first <code>i</code> characters, so the <i>i</i>-th is at index <code>i-1</code>.</li>

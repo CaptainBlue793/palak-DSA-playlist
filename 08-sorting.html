@@ -344,6 +344,16 @@
     <div class="cb-foot"><b>Note the parameter types:</b> <code>const T&amp;</code>, not <code>T</code>. Taking by value copies both arguments on every one of the ~n log n comparisons, which for a comparator over strings or vectors can dominate the entire sort.</div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 SORT KEY FIRST</span><div class="tb">Put the value you sort by first in the pair or tuple, then the default lexicographic comparison is already correct and you need no comparator at all.</div></div>
+    <div class="trick gotcha"><span class="tk">⛔ STRICT WEAK</span><div class="tb">A comparator must return false for equal elements. <code>return a&lt;=b</code> is undefined behaviour in <code>std::sort</code> and really does crash on large inputs.</div></div>
+    <div class="trick"><span class="tk">💡 MERGE COUNTS</span><div class="tb">Anything of the form "count pairs out of order" is merge sort with a counter in the merge step. Inversions, reverse pairs and count-of-smaller are one algorithm.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger">
     <div class="ico">💥</div>
     <div class="body"><div class="title">A comparator must be a <i>strict</i> weak ordering, or <code>sort</code> will crash</div>

@@ -263,6 +263,16 @@
     </table>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 MODEL, DO NOT IMPLEMENT</span><div class="tb">The skill being tested is the reduction: what are the two sides, what is the capacity, what does a unit of flow mean. Naming max-flow and describing the graph is usually the whole answer.</div></div>
+    <div class="trick"><span class="tk">💡 MATCHING = FLOW</span><div class="tb">Bipartite matching is max-flow with unit capacities. Kőnig then gives minimum vertex cover, and the complement gives maximum independent set — three answers from one run.</div></div>
+    <div class="trick"><span class="tk">💡 NODE CAPACITY</span><div class="tb">To cap a node rather than an edge, split it into in- and out-halves joined by one edge of that capacity. A standard trick worth remembering.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes</div>
     <ul class="mb0">
       <li><b>Forgetting to add the residual edge.</b> Without <code>cap[v][u] += bottleneck</code> the algorithm is just greedy and returns a wrong, smaller answer.</li>
