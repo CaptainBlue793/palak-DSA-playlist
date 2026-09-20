@@ -204,6 +204,16 @@
     </table>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 TWO-COLOUR BFS</span><div class="tb">Bipartite is BFS assigning alternating colours; a conflict means an odd cycle. "Is it bipartite" and "does an odd cycle exist" are the same question.</div></div>
+    <div class="trick"><span class="tk">💡 GRID PARITY</span><div class="tb">A grid graph is always bipartite by <code>(r+c) % 2</code> — no search needed. Recognising that kills a whole class of problems instantly.</div></div>
+    <div class="trick"><span class="tk">💡 DSU WITH PARITY</span><div class="tb">For mixed "same" and "different" constraints, store parity relative to the root in the DSU. It handles both kinds of edge in one structure.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes</div>
     <ul class="mb0">
       <li><b>Forgetting the driver loop over all nodes.</b> A disconnected graph needs each component coloured, and the non-bipartite part may be one you never started from.</li>

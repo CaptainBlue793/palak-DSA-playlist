@@ -346,6 +346,16 @@ pq.<span class="f">push</span>({dist,node});      <span class="c">// distance FI
       <p class="mb0">A heap cannot find an arbitrary element, so “remove this specific value” is O(n). Two standard fixes. <b>Lazy deletion:</b> keep a set of values to ignore, and on <code>top()</code> discard anything marked deleted — this is exactly the pattern used in Dijkstra (Chapter 29), where a stale entry is skipped with <code>if(d&gt;dist[node])continue;</code>. <b>Or use <code>multiset</code>:</b> it gives O(log n) insertion, O(1) minimum via <code>*begin()</code>, and O(log n) removal of a specific element via <code>erase(find(x))</code> — at the cost of a larger constant factor. Note <code>erase(x)</code> on a multiset removes <i>all</i> copies, which is almost never what you want; always <code>erase(find(x))</code>.</p></div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 SIZE-K HEAP</span><div class="tb">For k-th largest, keep a <b>min</b>-heap of size k and pop when it overflows. The root is the answer, it is O(n log k), and it works on a stream.</div></div>
+    <div class="trick"><span class="tk">💡 TWO HEAPS</span><div class="tb">A running median is a max-heap of the low half and a min-heap of the high half, rebalanced so the sizes differ by at most one. The same shape solves IPO and scheduling-by-two-keys.</div></div>
+    <div class="trick gotcha"><span class="tk">⛔ MIN-HEAP SYNTAX</span><div class="tb"><code>priority_queue</code> is a max-heap by default. A min-heap needs the full <code>greater&lt;&gt;</code> template argument — and the comparator is inverted relative to <code>sort</code>.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes</div>
     <ul class="mb0">
       <li><b>Forgetting that <code>priority_queue</code> is a max-heap by default.</b> The single most common heap bug in C++.</li>

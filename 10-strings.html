@@ -40,6 +40,16 @@
     <div class="card"><h4 class="mt0">Concatenation is a trap</h4><p class="small mb0">Building a string with <code>s = s + c</code> in a loop copies the whole string each time — O(n²) total. <code>s += c</code> is amortized O(1) and is what you always want. Same distinction as <code>push_back</code> versus reallocating.</p></div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 EXPAND CENTRES</span><div class="tb">For palindromic substrings, loop over <code>2n−1</code> centres and expand. O(n²) time, O(1) space, four lines — and it beats the DP table unless you need every answer.</div></div>
+    <div class="trick"><span class="tk">💡 FIXED WINDOW</span><div class="tb">Anagram search is a fixed-size window plus a 26-count array. Compare counts in O(26) — constant — rather than re-sorting each window.</div></div>
+    <div class="trick gotcha"><span class="tk">⛔ IN-PLACE STRINGS</span><div class="tb">Reverse-words-in-place is reverse-whole then reverse-each-word, and the hard part is collapsing runs of spaces with a write pointer. Test a string with leading, trailing and doubled spaces.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger">
     <div class="ico">💥</div>
     <div class="body"><div class="title">The quadratic string builders</div>

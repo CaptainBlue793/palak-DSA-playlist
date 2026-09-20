@@ -305,6 +305,16 @@ x&amp;=(x-<span class="m">1</span>);                           <span class="c">/
       <p class="mb0">This turns "maximum product of two words with no common letters" from O(n²·L) into O(n² ) after an O(n·L) preprocessing pass, and it is why <b>the "words with no shared letters" problem is a bit problem in disguise</b>. The <code>|=</code> versus <code>^=</code> distinction is the useful one to remember: OR records <i>presence</i>, XOR records <i>parity</i>, and the palindrome-permutation family needs parity.</p></div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 TWELVE IDIOMS</span><div class="tb"><code>x&amp;-x</code> isolates the lowest set bit, <code>x&amp;(x-1)</code> clears it, and that pair gives you popcount, power-of-two and set iteration. Learn them as vocabulary.</div></div>
+    <div class="trick"><span class="tk">💡 XOR CANCELS PAIRS</span><div class="tb">XOR is self-inverse, so it deletes everything appearing an even number of times. That is the whole single-number family, in O(1) space and one pass.</div></div>
+    <div class="trick gotcha"><span class="tk">⛔ PARITY BREAKS AT 3</span><div class="tb">With three copies XOR no longer cancels. Count each bit position mod 3 instead — and that version generalises to any k by changing one character.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes</div>
     <ul class="mb0">
       <li><b><code>x &amp; 1 == 0</code></b> parses as <code>x &amp; (1==0)</code> — always false. Parenthesise the comparison.</li>

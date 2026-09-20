@@ -409,6 +409,16 @@
       <p class="mb0">DFS is O(h) — cheap on a wide shallow tree, O(n) on a chain. BFS is O(w) where w is the widest level — cheap on a chain, and <b>n/2 on a complete tree</b>, so O(n). Neither is universally better; it depends on the shape. The useful consequence: on a nearly-complete tree of 10⁶ nodes, DFS uses ~20 frames while BFS queues ~500,000 pointers. On a 10⁶-node path, DFS overflows the stack while BFS holds one node. <b>Say which shape you are worried about</b> rather than quoting one number.</p></div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 ONE LOOP, SIX VIEWS</span><div class="tb">Level-order, zig-zag, left view, right view, top view and bottom view are the same BFS with one line changed. Learn the loop, then vary the one line — do not learn six functions.</div></div>
+    <div class="trick"><span class="tk">💡 INDEX LIKE A HEAP</span><div class="tb">Give the root index 0 and each node <code>2i+1</code> / <code>2i+2</code>, and width, verticality and position questions become arithmetic instead of traversal.</div></div>
+    <div class="trick gotcha"><span class="tk">⛔ VERTICAL TIE-BREAK</span><div class="tb">Vertical order ties must break on <code>(depth, value)</code>, not insertion order. A BFS that ignores the tie-break passes the samples and fails the hidden tests.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes</div>
     <ul class="mb0">
       <li><b><code>for(int i=0;i&lt;q.size();i++)</code>.</b> The queue grows as children are pushed, so the inner loop consumes the next level and all six problems in this chapter break.</li>

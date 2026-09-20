@@ -324,6 +324,16 @@ dp[<span class="m">0</span>]=<span class="c">/* base case, by hand */</span>;
       <p class="mb0">Notice the pattern: problems about a <b>contiguous subarray</b> or a <b>subsequence</b> use "ending at i" and their answer is the maximum over the table, because the optimal one need not include the last element. Problems that <b>accumulate over a prefix</b> use "first i" and their answer is the final cell. <b>Deciding which before you code removes the two most common 1D bugs</b> — returning <code>dp[n-1]</code> when you needed a maximum, and initialising the running best to 0 when the answer can be negative.</p></div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 ENDING AT i</span><div class="tb">When the answer is a best subarray, define the state as "ending at <code>i</code>" and take the maximum over the whole table. That is Kadane, and it generalises.</div></div>
+    <div class="trick"><span class="tk">💡 ROLL TWO VARS</span><div class="tb">A 1D DP that reads only <code>i-1</code> and <code>i-2</code> needs two variables, not an array. Same complexity, O(1) space, and fewer places to be wrong.</div></div>
+    <div class="trick"><span class="tk">💡 PATIENCE LIS</span><div class="tb">LIS in O(n log n) is <code>lower_bound</code> into a tails array. The tails array is <i>not</i> the answer subsequence — recovering that needs parent pointers.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes</div>
     <ul class="mb0">
       <li><b>Returning <code>dp[n-1]</code> for an "ending at i" state.</b> Maximum subarray and LIS both need the maximum over the whole table.</li>

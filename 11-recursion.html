@@ -297,6 +297,16 @@
     <div class="cb-foot"><b>Same complexity, no stack-overflow risk.</b> The space is still O(h), but it is now heap-allocated rather than on the (much smaller) call stack — so a 10⁶-node chain works. Chapter 16 has the iterative preorder and postorder, and the O(1)-space Morris traversal.</div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 THREE QUESTIONS</span><div class="tb">For every recursion: what is the base case, does the argument strictly shrink, and what do I return upward? Answer those three and the body writes itself.</div></div>
+    <div class="trick"><span class="tk">💡 CHOOSE / UNDO</span><div class="tb">Backtracking is push, recurse, pop — and the pop must be the exact inverse of the push. If you mutate two things going down, restore both coming up.</div></div>
+    <div class="trick gotcha"><span class="tk">⛔ DEPTH</span><div class="tb">Recursion depth is O(h), and <code>h</code> can be <code>n</code> on a chain. At 10⁵ nodes the default stack overflows, so know the iterative or reverse-BFS rewrite before you need it.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes</div>
     <ul class="mb0">
       <li><b>Base case with <code>==</code> instead of <code>&lt;=</code>.</b> A step of <code>n-2</code> from an odd n walks straight past <code>n==0</code>.</li>

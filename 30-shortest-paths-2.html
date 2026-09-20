@@ -195,6 +195,16 @@
     <div class="cb-foot"><b>The overflow guard is the line people omit.</b> Without it, two unreachable entries give <code>INT_MAX + INT_MAX</code>, which overflows to a negative number and instantly corrupts the matrix. Skip the pair, or use <code>long long</code> with a sentinel like <code>1e18</code> that can be added twice safely. The <code>continue</code> version is also faster, since it skips the arithmetic.</div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 V−1 THEN ONE MORE</span><div class="tb">Bellman-Ford relaxes V−1 rounds; a V-th round that still improves something proves a negative cycle. That extra pass <i>is</i> the detector.</div></div>
+    <div class="trick"><span class="tk">💡 DIST ALL ZERO</span><div class="tb">To find a negative cycle anywhere rather than only from a source, initialise every distance to 0. Neater than adding a virtual node, and one line.</div></div>
+    <div class="trick gotcha"><span class="tk">⛔ FLOYD LOOP ORDER</span><div class="tb">In Floyd-Warshall, <code>k</code> must be the <b>outermost</b> loop. Any other order computes something that is not the shortest path, and it looks plausible.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger">
     <div class="ico">🚨</div>
     <div class="body"><div class="title"><code>k</code> must be the outermost loop — and it is not obvious why</div>

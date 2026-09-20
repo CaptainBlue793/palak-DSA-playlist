@@ -32,6 +32,16 @@
   <h2>The invariant — and the mistake</h2>
   <p>For every node: <b>every value in its left subtree is smaller, and every value in its right subtree is larger.</b> Not “the left child is smaller” — the <i>entire</i> left subtree.</p>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 IN-ORDER IS SORTED</span><div class="tb">Nearly every BST problem reduces to "the in-order traversal is sorted". Validate, k-th smallest, minimum difference and two-sum all fall out of that one fact.</div></div>
+    <div class="trick"><span class="tk">💡 RANGE, NOT PARENT</span><div class="tb">Validate a BST by passing down <code>(low, high)</code> bounds, not by comparing with the parent. The parent check accepts trees that are locally fine and globally wrong.</div></div>
+    <div class="trick gotcha"><span class="tk">⛔ DELETE TWO CHILDREN</span><div class="tb">Deleting a two-child node means replacing it with its in-order successor and then deleting <i>that</i>. Handle the zero- and one-child cases first and the third becomes short.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger">
     <div class="ico">💥</div>
     <div class="body"><div class="title">The naive validation accepts a tree that is not a BST</div>

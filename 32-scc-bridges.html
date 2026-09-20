@@ -349,6 +349,16 @@
       <p class="mb0"><b>And when it is satisfiable, the condensation gives you the assignment:</b> set <code>x</code> to true iff <code>x</code>'s component comes <i>later</i> than <code>¬x</code>'s in reverse topological order — that is, Tarjan's component index for <code>x</code> is smaller. Assigning the literal whose component is "further downstream" never contradicts an implication, because implications only ever point from earlier components to later ones in the condensation. So 2-SAT is O(n + m), and it solves any problem shaped as “choose one of two options per item, subject to pairwise constraints”.</p></div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 LOW-LINK</span><div class="tb">Bridges, articulation points and SCCs are all one DFS carrying a discovery time and a low-link value. Learn the low-link update once and three algorithms follow.</div></div>
+    <div class="trick gotcha"><span class="tk">⛔ ROOT IS SPECIAL</span><div class="tb">The DFS root is an articulation point only if it has more than one child in the DFS tree. Forgetting that one case is the standard bug.</div></div>
+    <div class="trick"><span class="tk">💡 CONDENSE</span><div class="tb">Collapse each SCC to a node and you get a DAG, which you can then DP over. "Minimum edges to make it strongly connected" becomes <code>max(sources, sinks)</code> on that DAG.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes</div>
     <ul class="mb0">
       <li><b>Using <code>low[neighbour]</code> for a back edge instead of <code>disc[neighbour]</code>.</b> Inherits an escape route that does not exist, and breaks bridge detection subtly.</li>

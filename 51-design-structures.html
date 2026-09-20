@@ -271,6 +271,16 @@
       <p class="small mb0" style="margin-top:8px"><b>Notice how often the answer is "a map to something ordered", and how often the ordered thing is a plain vector with a binary search.</b> Several of these ask for O(log n) rather than O(1) — read the required complexity before assuming O(1) is demanded.</p></div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 TABULATE FIRST</span><div class="tb">Write operation → required complexity → structure before declaring a single member. The hard operation reveals the design, and the table becomes your explanation.</div></div>
+    <div class="trick"><span class="tk">💡 getRandom ⇒ ARRAY</span><div class="tb">O(1) uniform random forces a contiguous array. Deletion then becomes swap-with-last — and the line people forget is updating the moved element’s index.</div></div>
+    <div class="trick gotcha"><span class="tk">⛔ UPDATE BOTH</span><div class="tb">Every bug in an LRU is one structure updated and the other not. State the invariant — the map holds a valid iterator into the list — and check it at every exit.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes</div>
     <ul class="mb0">
       <li><b>Updating one structure and not the other.</b> On eviction, remove from <i>both</i> the list and the map.</li>

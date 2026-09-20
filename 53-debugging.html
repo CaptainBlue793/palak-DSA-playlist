@@ -338,6 +338,16 @@ dist[neighbour]=dist[node]+weight;</pre>
       <p class="mb0">There is no debugger and no test harness, so what is being assessed is your <b>method</b>. Trace your code on the sample input by hand, out loud, before saying you are done — and trace <code>n = 1</code> as well. When a bug appears, do not silently scan the code: <b>say what you expect at that point and what you actually see</b>, then narrow it down. And when you finish writing, volunteer the edge cases you would test rather than waiting to be asked. That habit reads as engineering maturity, and it costs thirty seconds.</p></div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 ONE INVARIANT PER LOOP</span><div class="tb">Write what is always true at the top of the loop. It settles where guards go, proves termination, and gives you one thing to print when it breaks.</div></div>
+    <div class="trick"><span class="tk">💡 STRESS TEST</span><div class="tb">Brute force, tiny random inputs (n ≤ 8, with negatives and duplicates), fixed seed, stop at the first mismatch. Thirty lines that settle a greedy argument in seconds.</div></div>
+    <div class="trick gotcha"><span class="tk">⛔ TRACE n = 1</span><div class="tb">Walk your actual code on <code>n = 1</code> and <code>n = 2</code> before declaring it done. That catches nearly every off-by-one in twenty seconds.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes when debugging</div>
     <ul class="mb0">
       <li><b>Changing code randomly until the test passes.</b> You have then fixed the symptom and kept the bug.</li>

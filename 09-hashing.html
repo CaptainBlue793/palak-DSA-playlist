@@ -66,6 +66,16 @@
     </div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 COMPLEMENT</span><div class="tb">For two-sum, look up <code>target − x</code> <i>before</i> inserting <code>x</code>. That ordering is what stops an element pairing with itself, and it removes the need for a second pass.</div></div>
+    <div class="trick"><span class="tk">💡 COUNT-STRING KEY</span><div class="tb">For grouping anagrams, a 26-length count string is an O(L) key against O(L log L) for sorting. Same grouping, better complexity, and it generalises to larger alphabets.</div></div>
+    <div class="trick gotcha"><span class="tk">⛔ ITERATION ORDER</span><div class="tb">Never rely on the order of an <code>unordered_map</code>. It varies between runs and compilers, and a test that depends on it will pass locally and fail on the judge.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger">
     <div class="ico">💥</div>
     <div class="body"><div class="title">O(1) is <i>expected</i>, and an adversary can take it away</div>

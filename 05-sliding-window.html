@@ -233,6 +233,16 @@
   <h2>When the window is simply wrong</h2>
   <p>This is the part that separates people who have memorised the template from people who understand it.</p>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 GROW THEN SHRINK</span><div class="tb">Always structure it as: extend <code>right</code> unconditionally, then <code>while</code> the window is invalid move <code>left</code>. An <code>if</code> instead of a <code>while</code> is the bug that passes the sample and fails the rest.</div></div>
+    <div class="trick"><span class="tk">💡 EXACTLY K</span><div class="tb">"Exactly K distinct" has no direct window. Compute <code>atMost(K) − atMost(K−1)</code> — two runs of the same helper, and the subtraction does the work.</div></div>
+    <div class="trick gotcha"><span class="tk">⛔ NEGATIVES</span><div class="tb">A sliding window needs the constraint to be monotone as the window grows. With negative numbers the sum is not monotone, so the window silently fails — that is a prefix-sum-plus-deque problem instead.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger">
     <div class="ico">🚨</div>
     <div class="body"><div class="title">Negative numbers destroy the shrink condition</div>

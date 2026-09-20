@@ -304,6 +304,16 @@
       <p class="mb0">On a general (unweighted) tree there is a second, prettier method: <b>BFS from any node to find the farthest node <code>u</code>, then BFS from <code>u</code></b> — the greatest distance found is the diameter. It is O(N), needs no DP, and the endpoint <code>u</code> is genuinely an endpoint of some diameter. But it relies on non-negative, uniform-ish edges: <b>it is false on graphs with cycles and false with negative weights</b>, whereas the DP version works on any tree including weighted ones (replace <code>1+</code> with <code>w+</code>). Knowing both, and knowing which assumption each needs, is a good thing to say aloud — the double-BFS is the answer interviewers usually want for an unweighted tree, and the DP is what generalises.</p></div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 POST-ORDER IS FREE</span><div class="tb">On a tree the recursion order <i>is</i> the topological order, so there is no fill order to arrange. That is why tree DP is the easiest DP.</div></div>
+    <div class="trick"><span class="tk">💡 RETURN A PAIR</span><div class="tb">When the choice depends on what the parent did, return two values — used and not-used. House robber III, max independent set and the camera problem are all this shape.</div></div>
+    <div class="trick gotcha"><span class="tk">⛔ SKIP FREES CHILDREN</span><div class="tb">Skipping a node imposes nothing downward, so each child takes its own max. Writing <code>skipL + skipR</code> silently forbids the grandchildren too.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes</div>
     <ul class="mb0">
       <li><b>Returning the bent answer.</b> A parent can only extend a straight chain; the bent path belongs in <code>ans</code>.</li>

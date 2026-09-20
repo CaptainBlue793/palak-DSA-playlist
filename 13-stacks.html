@@ -69,6 +69,16 @@
     <div class="cb-foot"><b>Three failure modes, three checks.</b> Empty stack on a closer (<code>")"</code>), wrong partner (<code>"(]"</code>), and a non-empty stack at the end (<code>"("</code>). Missing that last <code>return st.empty()</code> — writing <code>return true</code> instead — is the single most common bug here, and it passes every balanced test case.</div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 WHAT INVALIDATES</span><div class="tb">A monotonic stack is defined by one question: what makes an earlier element useless? For next-greater it is a bigger element arriving — so pop while the top is smaller.</div></div>
+    <div class="trick"><span class="tk">💡 STORE INDICES</span><div class="tb">Push indices, not values. You almost always need the distance between positions, and you can still read the value with one indirection.</div></div>
+    <div class="trick speed"><span class="tk">⚡ SENTINELS</span><div class="tb">Append a 0 to a histogram (and treat −1 as a left sentinel) and the final flush loop disappears — every bar gets popped by the sentinel.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger">
     <div class="ico">💀</div>
     <div class="body"><div class="title"><code>st.top()</code> on an empty stack is undefined behaviour, not an exception</div>

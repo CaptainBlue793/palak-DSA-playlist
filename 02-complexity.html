@@ -129,6 +129,16 @@
       <p class="mb0">With doubling, total copy work to reach n elements is <code>1 + 2 + 4 + … + n/2 &lt; n</code> (a geometric series sums to less than twice its largest term). Divide by n pushes and you get less than 1 copy per push — constant. With <code>+1</code> growth, total work is <code>1 + 2 + 3 + … + n = n(n+1)/2</code>, which is O(n²) total and O(n) per push. <b>Any</b> constant growth factor above 1 gives amortized O(1); adding a constant does not.</p></div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 DROP CONSTANTS</span><div class="tb">O(3n + 5) is O(n), but <b>never</b> drop the constant when comparing two solutions of the same class — a 4n pass and an n pass both being "linear" is how you lose a factor of four you needed.</div></div>
+    <div class="trick"><span class="tk">💡 MEMORY FIRST</span><div class="tb">Multiply the table out before you allocate: <code>int dp[5000][5000]</code> is 100 MB and will not fit. Memory, not time, is what usually kills a DP.</div></div>
+    <div class="trick speed"><span class="tk">⚡ HARMONIC</span><div class="tb">A loop that steps by <code>i</code> inside a loop over <code>i</code> is O(n log n), not O(n²) — the harmonic sum. Worth recognising so you do not over-optimise something already fast enough.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger">
     <div class="ico">⚠️</div>
     <div class="body"><div class="title">Amortized is not the same as average-case</div>

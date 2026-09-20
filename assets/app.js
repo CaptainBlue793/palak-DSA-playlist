@@ -254,6 +254,16 @@
     main.parentNode.insertBefore(layout, main);
     layout.appendChild(sidebar); layout.appendChild(scrim); layout.appendChild(mainWrap);
     mainWrap.appendChild(top); mainWrap.appendChild(main);
+
+    // On wide screens the section list moves out of the sidebar into its own
+    // rail beside the text, so the reader can see where they are without the
+    // chapter list competing for attention.
+    const rail = document.createElement('nav');
+    rail.className = 'toc-rail'; rail.id = 'tocRail';
+    rail.innerHTML = '<div class="rail-t">On this page</div>';
+    mainWrap.appendChild(rail);
+    mainWrap.classList.add('has-rail');
+
     body.insertBefore(progress, body.firstChild);
 
     top.querySelector('.theme-btn').onclick = toggleTheme;
@@ -276,6 +286,7 @@
 
   function buildToc(chap, main) {
     const toc = document.getElementById('toc');
+    const rail = document.getElementById('tocRail');
     const h2s = DSA.$$('h2', main);
     h2s.forEach((h, i) => {
       if (!h.id) h.id = 's' + (i + 1) + '-' + h.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40);
@@ -283,19 +294,28 @@
         const s = document.createElement('span'); s.className = 'sec-num'; s.textContent = `${chap.n}.${i + 1}`;
         h.prepend(s);
       }
+      const label = h.textContent.replace(/^\d+\.\d+/, '').trim();
       if (toc) {
         const a = document.createElement('a'); a.href = '#' + h.id;
-        a.textContent = h.textContent.replace(/^\d+\.\d+/, '').trim();
+        a.textContent = label;
         toc.appendChild(a);
         a.addEventListener('click', () => { DSA.$('.sidebar').classList.remove('open'); DSA.$('.scrim').classList.remove('show'); });
       }
+      if (rail) {
+        const a = document.createElement('a'); a.href = '#' + h.id; a.textContent = label;
+        rail.appendChild(a);
+      }
     });
-    if (!toc || !h2s.length) return;
-    const links = DSA.$$('a', toc);
+    if (!h2s.length) { if (rail) rail.remove(); return; }
+    DSA.sections = h2s;
+    const links = [...DSA.$$('a', toc || document.createElement('i')), ...(rail ? DSA.$$('a', rail) : [])];
+    if (!links.length) return;
+    const n = h2s.length;
     const spy = () => {
       let idx = 0;
       h2s.forEach((h, i) => { if (h.getBoundingClientRect().top < 140) idx = i; });
-      links.forEach((l, i) => l.classList.toggle('active', i === idx));
+      // both lists hold the same headings in the same order, so one index drives both
+      links.forEach((l, i) => l.classList.toggle('active', i % n === idx));
     };
     addEventListener('scroll', spy, { passive: true }); spy();
   }
@@ -512,7 +532,7 @@
       box.innerHTML = `<div class="pal-inner" role="dialog" aria-label="Search the course">
           <div class="pal-top"><span>🔎</span><input id="pal-input" placeholder="Search 56 chapters — patterns, algorithms, code…" autocomplete="off" spellcheck="false"><kbd class="kbd">Esc</kbd></div>
           <div class="pal-list" id="pal-list"></div>
-          <div class="pal-foot"><span><kbd class="kbd">↑</kbd><kbd class="kbd">↓</kbd> navigate · <kbd class="kbd">↵</kbd> open</span><span>tip: try “monotonic stack”, “Dijkstra”, “bitmask”, “KMP”</span></div>
+          <div class="pal-foot"><span><kbd class="kbd">↑</kbd><kbd class="kbd">↓</kbd> navigate · <kbd class="kbd">↵</kbd> open</span><span><kbd class="kbd">←</kbd><kbd class="kbd">→</kbd> chapter · <kbd class="kbd">j</kbd><kbd class="kbd">k</kbd> section · <kbd class="kbd">t</kbd> theme</span></div>
         </div>`;
       document.body.appendChild(box);
       input = box.querySelector('#pal-input');
@@ -596,7 +616,27 @@
       if ((e.key === 'k' || e.key === 'K') && (e.ctrlKey || e.metaKey)) { e.preventDefault(); box && box.classList.contains('show') ? close() : open(); }
       else if (e.key === '/' && !typing && !(box && box.classList.contains('show'))) { e.preventDefault(); open(); }
       else if (e.key === 'Escape') close();
+      else if (!typing && !e.ctrlKey && !e.metaKey && !e.altKey && !(box && box.classList.contains('show'))) navKeys(e);
     });
+
+    // Reading shortcuts. Deliberately only active when no modifier is held, no
+    // field has focus and the palette is closed, so they never steal a keystroke.
+    function navKeys(e) {
+      const chapNum = +document.body.dataset.chapter || 0;
+      const i = CHAPTERS.findIndex((c) => c.n === chapNum);
+      if (e.key === 'ArrowRight' && i > -1 && i < CHAPTERS.length - 1) { location.href = CHAPTERS[i + 1].file; }
+      else if (e.key === 'ArrowLeft' && i > 0) { location.href = CHAPTERS[i - 1].file; }
+      else if (e.key === 'j' || e.key === 'k') {
+        const secs = DSA.sections || [];
+        if (!secs.length) return;
+        e.preventDefault();
+        let cur = -1;
+        secs.forEach((h, n) => { if (h.getBoundingClientRect().top < 140) cur = n; });
+        const next = e.key === 'j' ? Math.min(secs.length - 1, cur + 1) : Math.max(0, cur);
+        const target = e.key === 'k' && cur >= 0 && secs[cur].getBoundingClientRect().top > 10 ? secs[cur] : secs[e.key === 'j' ? next : Math.max(0, cur - 1)];
+        (target || secs[0]).scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else if (e.key === 't') { toggleTheme(); }
+    }
     DSA.$$('.search-btn').forEach((b) => (b.onclick = open));
     DSA.openSearch = open;
   }

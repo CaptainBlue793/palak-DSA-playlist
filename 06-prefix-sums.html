@@ -271,6 +271,16 @@
       <p class="mb0">O(n) time, O(1) auxiliary space beyond the output, and no division. The two-sweep shape — <b>accumulate left to right into the answer, then right to left into the same answer</b> — shows up in trapping rain water and candy distribution too.</p></div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 SEEN[0] = 1</span><div class="tb">For "subarray summing to k" seed the map with <code>{0: 1}</code> before the loop. That single entry is what lets a prefix that <i>is</i> the answer be counted.</div></div>
+    <div class="trick"><span class="tk">💡 MAP 0 TO −1</span><div class="tb">Equal counts of two symbols becomes "sum equals zero" the moment you map one to +1 and the other to −1. Works for 0s/1s, and for any balanced-pair problem.</div></div>
+    <div class="trick speed"><span class="tk">⚡ DIFFERENCE ARRAY</span><div class="tb">For q range-updates and one final read, do not touch the range: add at <code>l</code>, subtract at <code>r+1</code>, then prefix-sum once at the end. O(q + n) instead of O(q·n).</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes</div>
     <ul class="mb0">
       <li><b>Forgetting <code>seen[0] = 1</code></b> in the prefix-sum-plus-hash-map pattern. Every subarray starting at index 0 is silently missed.</li>

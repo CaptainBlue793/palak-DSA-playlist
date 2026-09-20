@@ -259,6 +259,16 @@ opt[i][j-<span class="m">1</span>] &lt;= opt[i][j] &lt;= opt[i+<span class="m">1
       <p class="small mb0" style="margin-top:8px">The tell is always the same: <b>the answer for a range is assembled from two adjacent sub-ranges, and you get to pick where they meet.</b> If instead the range's answer depends on a <i>single</i> element being removed from an end, it is a simpler two-pointer or 1D DP.</p></div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 NAME k FIRST</span><div class="tb">Write a comment saying exactly what <code>k</code> is — the last operation, the first cut, the root — before the loop. The bounds and the two recursive terms then follow mechanically.</div></div>
+    <div class="trick"><span class="tk">💡 THINK LAST</span><div class="tb">When splitting on the first operation makes the halves interact, split on the <b>last</b> one instead. That inversion solves burst balloons, merge stones and remove boxes.</div></div>
+    <div class="trick gotcha"><span class="tk">⛔ LENGTH OUTER</span><div class="tb">Both indices increasing reads a row that has not been filled and fails silently. Iterate by increasing length, or <code>i</code> downward with <code>j</code> upward.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes</div>
     <ul class="mb0">
       <li><b>Looping <code>i</code> upward and <code>j</code> upward.</b> <code>dp[k+1][j]</code> comes from a row not yet filled — silently wrong, never a crash.</li>

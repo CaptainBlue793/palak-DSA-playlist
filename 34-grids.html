@@ -230,6 +230,16 @@
       <p class="mb0">A grid has <code>V = rows·cols</code> nodes and at most <code>4V</code> edges, so it is inherently sparse and <code>O(V + E) = O(rows·cols)</code>. That means <b>plain BFS and DFS on a grid are linear in the number of cells</b>, and a 10⁶-cell grid traverses in milliseconds. Dijkstra adds a log factor for the heap, giving <code>O(rows·cols·log(rows·cols))</code>. So if your grid solution is slower than that, the problem is usually a missing <code>visited</code> check causing re-expansion — or you are running a fresh BFS per source when a multi-source pass would do.</p></div>
   </div>
 
+<!-- tips:start -->
+  <h2>Tips &amp; tricks</h2>
+  <p class="small muted" style="margin:-4px 0 12px">The things that are muscle memory rather than theory — what to check first, and the line that is wrong the first time you write it.</p>
+  <div class="tricks">
+    <div class="trick"><span class="tk">💡 DIRECTION ARRAYS</span><div class="tb">Keep <code>dr[]</code> and <code>dc[]</code> and loop. Four branches become one loop, and switching to 8-connectivity is then a two-element edit rather than a rewrite.</div></div>
+    <div class="trick"><span class="tk">💡 MULTI-SOURCE</span><div class="tb">Push <b>every</b> source before the loop starts and BFS fans out from all of them at once. That converts "distance to the nearest X" from many searches into one.</div></div>
+    <div class="trick"><span class="tk">💡 FLOOD FROM OUTSIDE</span><div class="tb">For "regions not touching the border", start the flood at the border and invert. Far easier than testing enclosure from the inside.</div></div>
+  </div>
+<!-- tips:end -->
+
   <div class="callout danger"><div class="ico">⚠️</div><div class="body"><div class="title">Common mistakes</div>
     <ul class="mb0">
       <li><b>Checking validity before bounds.</b> <code>grid[nr][nc]</code> is evaluated before <code>nr &gt;= 0</code> if you write the condition in that order. Bounds first, always.</li>
